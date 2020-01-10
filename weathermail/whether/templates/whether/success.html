@@ -1,0 +1,19 @@
+{% extends 'whether/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    div.bord {
+    width: 500px;
+    margin: auto;
+    }
+</style>
+<div class="bord">
+    <h2>Success!</h2>
+    <body>You are now subscribed to our mailing list. We will send emails to {{ subscriber.email }} with the weather for {{ subscriber.location }}, as well as discounts for brands and products that you love!</body>
+</div>
+{% endblock %}
+
+{% block footer %}
+{{ form.media }}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'whether/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    div.bord {
+    width: 500px;
+    margin: auto;
+    border: 3px solid mediumseagreen;
+    }
+</style>
+<div class="bord">
+If you give us your email and your city, we'll send you the weather in your area to your inbox every morning, plus a discount for the brands and stores that you love.
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit"/>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>
+{{ form.media }}
+{% endblock %}
