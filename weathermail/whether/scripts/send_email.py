@@ -20,6 +20,7 @@ from whether.utils.weather import (
     get_cities_with_crummy_weather,
     get_cities_with_good_weather,
     update_weather,
+    weather_valid,
 )
 
 import logging
@@ -66,6 +67,8 @@ def send_city_mail(l, subject_line, con):
     subs = Subscriber.objects.filter(location=l)
     try:
         loc_weather = Weather.objects.get(location=l)
+        if not weather_valid(loc_weather):
+            raise ObjectDoesNotExist()
     except ObjectDoesNotExist:
         logging.error(f'No weather object found for {l}. Sending those users an error email', exc_info=False)
         send_no_weather_mail(subs, con)
@@ -109,7 +112,7 @@ def run():
     other_cities = get_all_other_cities(good_weather_cities, poor_weather_cities)
 
     # Manually open the connection since we are sending many messages
-    con = mail.get_or_refresh_con()
+    con = get_or_refresh_con()
     logging.info('Beginning email send process')
     for l in good_weather_cities:
         send_city_mail(l, NICE_WEATHER_SUBJECT, con)
