@@ -23,6 +23,7 @@ EMAIL_BODY = """
                     <br>Projected weather for today is: {description}.
                     <br><br>Want weather from another city?
                     <br>Update your preferences here: http://localhost:8000/whether/{subscriber_id}/update/
+                    <br><small>While this app is in development, please note that this link will only work if you sent the email locally, and have your server running</small>
                     <br>Weather data collected from: weatherbit.io
                 </span>
             </td>
@@ -45,6 +46,7 @@ UPDATE_INFO_EMAIL_BODY = """
                 <span style="font-family: 'Arial Black', Gadget, sans-serif; color: #444444;">
                     Uh-oh, something went wrong. It looks like we can't find a city for you.
                     <br>Please update your preferences here: http://localhost:8000/whether/{subscriber_id}/update/
+                    <br><small>While this app is in development, please note that this link will only work if you sent the email locally, and have your server running</small>
                 </span>
             </td>
         </table>
@@ -68,6 +70,7 @@ NO_WEATHER_EMAIL_BODY = """
                     Sorry about that!
                     <br><br>Want weather from another city?
                     <br>Update your preferences here: http://localhost:8000/whether/{subscriber_id}/update/
+                    <br><small>While this app is in development, please note that this link will only work if you sent the email locally, and have your server running</small>
                     <br>Weather data collected from: weatherbit.io
                 </span>
             </td>

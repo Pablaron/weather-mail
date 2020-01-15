@@ -86,7 +86,11 @@ def update_weather():
 
 
 def weather_valid(l):
-    return l.temperature_today and l.temperature_tomorrow and l.weather_code and l.weather_description
+    # Must compare to None since a temperature value = 0 is not truthy
+    if l.temperature_today is None or l.temperature_tomorrow is None\
+        or l.weather_code is None or l.weather_description is None:
+        return False
+    return True
 
 
 def get_cities_with_good_weather():
