@@ -1,5 +1,6 @@
-from whether.models import Location
+from django.db.utils import ProgrammingError
 from json import JSONDecodeError
+from whether.models import Location
 import logging
 import requests
 
@@ -66,14 +67,17 @@ def _add_new_cities_to_db_and_update_population(largest_cities):
     """
 
     logging.info('Creating new location objects')
-    locations = [Location(**city_info) for city_info in largest_cities]
-    Location.objects.bulk_create(locations, ignore_conflicts=True)
-    logging.info('New location objects created')
+    try:
+        locations = [Location(**city_info) for city_info in largest_cities]
+        Location.objects.bulk_create(locations, ignore_conflicts=True)
+        logging.info('New location objects created')
 
-    logging.info('Updating population of all cities')
-    for l in locations:
-        # update works on querysets, can't update on an individual object unless it's in a queryset
-        Location.objects.filter(city=l.city, state=l.state).update(population=l.population)
+        logging.info('Updating population of all cities')
+        for l in locations:
+            # update works on querysets, can't update on an individual object unless it's in a queryset
+            Location.objects.filter(city=l.city, state=l.state).update(population=l.population)
+    except ProgrammingError:
+        logging.error('Error when trying to load the cities. Has the database been migrated yet?')
     logging.info('City populations updated')
 
 

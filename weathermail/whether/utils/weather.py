@@ -85,6 +85,10 @@ def update_weather():
             Weather.objects.filter(pk=weather.pk).update(**weather_data)
 
 
+def weather_valid(l):
+    return l.temperature_today and l.temperature_tomorrow and l.weather_code and l.weather_description
+
+
 def get_cities_with_good_weather():
     """Return all cities with:
     todays temp >= tomorrows temp + 5 OR the sky is "scattered clouds" or more clear
@@ -94,7 +98,7 @@ def get_cities_with_good_weather():
     """
     good_weather = Weather.objects.filter(temperature_today__gte=F('temperature_tomorrow')+5) | \
         Weather.objects.filter(weather_code__in=NICE_WEATHER)
-    return [w.location for w in good_weather]
+    return [w.location for w in good_weather if weather_valid(w)]
 
 
 def get_cities_with_crummy_weather(good_weather_cities):
@@ -106,7 +110,7 @@ def get_cities_with_crummy_weather(good_weather_cities):
     """
     bad_weather_candidates = Weather.objects.filter(temperature_today__lte=F('temperature_tomorrow')-5) | \
         Weather.objects.exclude(weather_code__in=NON_PRECIPITATION)
-    return [b.location for b in bad_weather_candidates if b not in good_weather_cities]
+    return [w.location for w in bad_weather_candidates if w not in good_weather_cities and weather_valid(w)]
 
 
 def get_all_other_cities(good_weather_cities, bad_weather_cities):
