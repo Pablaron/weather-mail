@@ -18,7 +18,7 @@ Original problem description and spec [here](https://www.klaviyo.com/weather-app
 1. Clone this repo
 1. You'll probably want to make a new virtual environment to run this in.
 I recommend [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/index.html).
-1. `pip install -r requirements.txt` from the root of this repo. 
+1. `pip3 install -r requirements.txt` from the root of this repo. 
 If you don't have pip installed, you can find it [here](https://pip.pypa.io/en/stable/installing/)
 1. Create a local Postgres database named `weathermail`.
 1. You will need three environment variables set in order to get email sending functionality:
