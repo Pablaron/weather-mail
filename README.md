@@ -23,10 +23,11 @@ If you don't have pip installed, you can find it [here](https://pip.pypa.io/en/s
 1. Create a local Postgres database named `weathermail`.
 1. You will need three environment variables set in order to get email sending functionality:
 	- `export EMAIL_HOST_USER='youremail@gmail.com'`
-	- `export EMAIL_HOST_PASSWORD='your email password'`
+	- `export EMAIL_HOST_PASSWORD='your email password'` Note that if you use a gmail address, you will need to generate an app password [see here](https://support.google.com/accounts/answer/185833?hl=en)
 	- Generate a WeatherBit API [here](https://www.weatherbit.io/account/create) and then
 `export WEATHERBIT_KEY='your key here'`.
 1. Are you using gmail? If so, you can skip this step - otherwise, you'll need to navigate to `weathermail/weathermail/settings.py` and update `EMAIL_HOST`, `EMAIL_USE_TLS`, and `EMAIL_PORT`. [This page](https://docs.djangoproject.com/en/3.0/topics/email/) should answer any questions you have about how to get set up.
+1. Migrate the database from `/weathermail/` directory, run `./manage.py migrate`.
 
 ## Usage
 1. Navigate to the `weathermail/` folder and run `./manage.py runserver` to get the server set up.
